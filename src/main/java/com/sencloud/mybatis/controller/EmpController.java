@@ -6,9 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.sencloud.mybatis.dataobject.EmployeeDO;
 import com.sencloud.mybatis.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,5 +34,23 @@ public class EmpController {
         PageInfo<EmployeeDO> pageInfo = new PageInfo(empList);
         return pageInfo;
 
+    }
+
+    @GetMapping("/page/name")
+    public PageInfo<EmployeeDO> findByNameForPage(@RequestParam("page") Integer pageNum,
+                                                  @RequestParam("size") Integer size,
+                                                  @RequestParam("lastName") String lastName){
+
+        PageHelper.startPage(pageNum,size);
+        List<EmployeeDO> empList = employeeService.findByNameForPage(lastName);
+        PageInfo<EmployeeDO> pageInfo = new PageInfo(empList);
+        return pageInfo;
+
+    }
+
+    @PostMapping("/insert")
+    public String insert(@RequestBody EmployeeDO employeeDO){
+        employeeService.insert(employeeDO);
+        return "ok";
     }
 }

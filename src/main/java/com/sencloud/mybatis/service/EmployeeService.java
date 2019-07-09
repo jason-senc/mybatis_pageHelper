@@ -29,4 +29,13 @@ public class EmployeeService {
         return  employeeDOMapper.findByPage();
     }
 
+    public List<EmployeeDO> findByNameForPage(String firstName){
+        return  employeeDOMapper.findByNameForPage(firstName);
+    }
+
+
+    public void insert(EmployeeDO employeeDO){
+        employeeDOMapper.insertSelective(employeeDO);
+    }
+
 }

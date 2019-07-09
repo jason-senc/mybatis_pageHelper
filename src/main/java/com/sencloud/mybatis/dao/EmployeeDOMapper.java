@@ -55,5 +55,14 @@ public interface EmployeeDOMapper {
      */
     int updateByPrimaryKey(EmployeeDO record);
 
+    /**
+     * 分页
+     * @return
+     */
     List<EmployeeDO> findByPage();
+
+    /**
+     * 搜索条件加分页
+     */
+    List<EmployeeDO> findByNameForPage(String firstName);
 }
