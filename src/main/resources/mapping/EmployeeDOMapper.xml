@@ -339,15 +339,39 @@
   </update>
 
   <!-- foreach-->
+    <!--
+        collection ： 指定要遍历的集合：
+            list类型的参数会特殊处理封装在map中，map的key就叫list
+            item： 将当前遍历出的元素赋值给指定的变量
+            #{变量名}就能取出变量的值也就是当前遍历出的元素
+            open: 遍历出的所有拼接一个开始的字符串
+            separator: 每个元素之间的分隔符
+            close: 遍历出的所有拼接一个结束的字符串
+            index:索引，遍历list的时候就是list的索引，item就是当前的值
+                        遍历map的时候index表示的就是map的key，item就是map的值
+
+    -->
   <select id="getEmpByIds" resultMap="BaseResultMap" parameterType="java.util.List">
 
     select * from employees where employee_id in
-    <!--<foreach collection="list"  item="item_id" open="(" close=")" separator="," >
+
+    <foreach collection="list"  item="item_id" open="(" close=")" separator="," >
       #{item_id}
-    </foreach>-->
+    </foreach>
 
   </select>
 
+    <!-- 批量新增-->
+   <insert id="addEmps" >
+       insert into employees
+       (first_name,last_name,email)
+      values
+      <foreach collection="emps" item="emp"  separator=",">
+          (#{emp.firstName},#{emp.lastName},#{emp.email})
+      </foreach>
+
+
+   </insert>
 
 
 
