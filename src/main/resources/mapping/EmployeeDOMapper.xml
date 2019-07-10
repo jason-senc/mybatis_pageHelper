@@ -361,8 +361,8 @@
 
   </select>
 
-    <!-- 批量新增-->
-   <insert id="addEmps" >
+    <!-- 批量新增  方式一：-->
+   <insert id="addEmps1" >
        insert into employees
        (first_name,last_name,email)
       values
@@ -370,9 +370,36 @@
           (#{emp.firstName},#{emp.lastName},#{emp.email})
       </foreach>
 
-
    </insert>
 
+  <!-- 批量新增  方式二： 需要设置数据库连接属性-->
+  <insert id="addEmps" >
+    <foreach collection="emps" item="emp" separator=";">
+      insert into employees
+    (first_name,last_name,email)
+    values
+      (#{emp.firstName},#{emp.lastName},#{emp.email})
+    </foreach>
+  </insert>
 
+<!--批量删除 方式一：-->
+
+  <delete id="deleteEmps1">
+    delete from employees where employee_id in
+    <foreach collection="empsDelList" item="empDelList" separator="," open="(" close=")">
+      #{empDelList}
+    </foreach>
+
+  </delete>
+
+  <!--批量删除 方式二：-->
+
+  <delete id="deleteEmps">
+    <foreach collection="empsDelList" item="empDelList" separator=";" >
+      delete from employees where employee_id =#{empDelList}
+
+    </foreach>
+
+  </delete>
 
 </mapper>
