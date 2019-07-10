@@ -3,6 +3,7 @@ package com.sencloud.mybatis.dao;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.sencloud.mybatis.dataobject.EmployeeDO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -57,6 +58,7 @@ public interface EmployeeDOMapper {
 
     /**
      * 分页
+     *
      * @return
      */
     List<EmployeeDO> findByPage();
@@ -65,4 +67,30 @@ public interface EmployeeDOMapper {
      * 搜索条件加分页
      */
     List<EmployeeDO> findByNameForPage(String firstName);
+
+    /**
+     * 根据员工id查询emp和dept
+     */
+    EmployeeDO findEmpAndDept(Integer id);
+
+    /**
+     * 遍历集合
+     *
+     * @param list
+     * @return
+     */
+    List<EmployeeDO> getEmpByIds(@Param("list") List<Integer> list);
+
+    /**
+     * 批量保存
+     *
+     * @param employeeDOList
+     */
+    void addEmps(@Param("emps") List<EmployeeDO> employeeDOList);
+
+    /**
+     * 批量删除
+     * @param empIds
+     */
+    void deleteEmps(@Param("empsDelList") List<Integer> empIds);
 }

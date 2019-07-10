@@ -8,6 +8,7 @@ import com.sencloud.mybatis.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 /**
@@ -53,4 +54,29 @@ public class EmpController {
         employeeService.insert(employeeDO);
         return "ok";
     }
+
+    @GetMapping("/findAllById")
+    public EmployeeDO findEmpAndDept(Integer id){
+        return employeeService.findEmpAndDept(id);
+    }
+
+    @PostMapping ("/getEmpByIds")
+    public List<EmployeeDO> getEmpByIds(@RequestBody List<Integer> ids){
+
+        System.out.println(ids);
+        return employeeService.getEmpByIds(ids);
+    }
+
+    @PostMapping("/addEmps")
+    public String addEmps(@RequestBody List<EmployeeDO> employeeDOList){
+        employeeService.addEmps(employeeDOList);
+        return "success";
+    }
+
+    @PostMapping("/delEmps")
+    public String delEmps(@RequestBody List<Integer> ids){
+        employeeService.delEmps(ids);
+        return "ok";
+    }
+
 }

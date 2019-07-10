@@ -33,9 +33,24 @@ public class EmployeeService {
         return  employeeDOMapper.findByNameForPage(firstName);
     }
 
+    public EmployeeDO findEmpAndDept(Integer id ){
+        return employeeDOMapper.findEmpAndDept(id);
+    }
 
     public void insert(EmployeeDO employeeDO){
         employeeDOMapper.insertSelective(employeeDO);
+    }
+
+    public List<EmployeeDO>getEmpByIds(List ids){
+        return employeeDOMapper.getEmpByIds(ids);
+    }
+
+    public void addEmps(List<EmployeeDO> employeeDOList){
+        employeeDOMapper.addEmps(employeeDOList);
+    }
+
+    public void delEmps(List<Integer> ids){
+        employeeDOMapper.deleteEmps(ids);
     }
 
 }
